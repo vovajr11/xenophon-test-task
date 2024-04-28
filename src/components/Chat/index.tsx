@@ -38,6 +38,7 @@ const AnswerMessage = ({ content }: IAnswerMessage) => {
       </div>
       <div className="mb-4 flex rounded-xl bg-slate-50 px-2 py-6 dark:bg-slate-900 sm:px-4">
         <img
+          alt="User"
           className="mr-2 flex h-8 w-8 rounded-full sm:mr-4"
           src="https://dummyimage.com/256x256/354ea1/ffffff&text=G"
         />
@@ -62,11 +63,14 @@ const Messages = () => {
 
   const messagesRef: React.LegacyRef<HTMLDivElement> = React.createRef();
 
-  const scrollToBottom = () => {
-    messagesRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      messagesRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+    handleScroll();
 
-  useEffect(() => scrollToBottom(), [chatHistory]);
+    return () => {};
+  }, [chatHistory]);
 
   return (
     <Fragment>
@@ -77,6 +81,7 @@ const Messages = () => {
               return (
                 <div key={el.id} className="flex px-2 py-4 sm:px-4">
                   <img
+                    alt="user"
                     className="mr-2 flex h-8 w-8 rounded-full sm:mr-4"
                     src="https://dummyimage.com/256x256/363536/ffffff&text=U"
                   />

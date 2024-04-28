@@ -70,32 +70,34 @@ const Messages = () => {
     handleScroll();
 
     return () => {};
-  }, [chatHistory]);
+  }, [chatHistory, messagesRef]);
 
   return (
     <Fragment>
       {
         <Fragment>
           {chatHistory.map((el) => {
-            if (el.type === "request") {
-              return (
-                <div key={el.id} className="flex px-2 py-4 sm:px-4">
-                  <img
-                    alt="user"
-                    className="mr-2 flex h-8 w-8 rounded-full sm:mr-4"
-                    src="https://dummyimage.com/256x256/363536/ffffff&text=U"
-                  />
+            return (
+              <Fragment>
+                {el.type === "request" && (
+                  <div key={el.id} className="flex px-2 py-4 sm:px-4">
+                    <img
+                      alt="user"
+                      className="mr-2 flex h-8 w-8 rounded-full sm:mr-4"
+                      src="https://dummyimage.com/256x256/363536/ffffff&text=U"
+                    />
 
-                  <div className="flex max-w-3xl items-center">
-                    <p>{el.content}</p>
+                    <div className="flex max-w-3xl items-center">
+                      <p>{el.content}</p>
+                    </div>
                   </div>
-                </div>
-              );
-            }
+                )}
 
-            if (el.type === "answer") {
-              return <AnswerMessage content={el.content} key={el.id} />;
-            }
+                {el.type === "answer" && (
+                  <AnswerMessage content={el.content} key={el.id} />
+                )}
+              </Fragment>
+            );
           })}
 
           {isLoadingData && <AnswerMessage />}
